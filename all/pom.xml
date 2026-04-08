@@ -55,12 +55,6 @@
                     <embeddeds>
                         <embedded>
                             <groupId>com.assessment</groupId>
-                            <artifactId>assessment.ui.apps.structure</artifactId>
-                            <type>zip</type>
-                            <target>/apps/assessment-packages/application/install</target>
-                        </embedded>
-                        <embedded>
-                            <groupId>com.assessment</groupId>
                             <artifactId>assessment.ui.apps</artifactId>
                             <type>zip</type>
                             <target>/apps/assessment-packages/application/install</target>
@@ -82,4 +76,37 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>autoinstallpackage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.day.jcr.vault</groupId>
+                        <artifactId>content-package-maven-plugin</artifactId>
+                        <version>1.0.4</version>
+                        <executions>
+                            <execution>
+                                <id>install-package</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>install</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
+                            <user>${aem.username}</user>
+                            <password>${aem.password}</password>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
