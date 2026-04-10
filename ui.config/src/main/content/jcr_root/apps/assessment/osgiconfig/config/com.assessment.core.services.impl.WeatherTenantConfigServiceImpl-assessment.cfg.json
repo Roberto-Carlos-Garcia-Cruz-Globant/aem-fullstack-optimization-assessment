@@ -1,0 +1,7 @@
+{
+  "tenantId": "assessment-id",
+  "siteName": "assessment",
+  "weatherApiEndpoint": "https://goweather.xyz/weather/",
+  "weatherApiKey": "model-level-hardcoded-key",
+  "enabled": true
+}
