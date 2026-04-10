@@ -79,7 +79,7 @@
 
     <profiles>
         <profile>
-            <id>autoinstallpackage</id>
+            <id>autoInstallPackage</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>

@@ -90,7 +90,7 @@
 
     <profiles>
         <profile>
-            <id>autoinstallbundle</id>
+            <id>autoInstallBundle</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
