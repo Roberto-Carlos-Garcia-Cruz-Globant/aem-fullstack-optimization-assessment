@@ -34,6 +34,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.service.metatype.annotations</artifactId>
+            <version>1.4.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
@@ -61,7 +73,7 @@
                         <Bundle-SymbolicName>com.assessment.core</Bundle-SymbolicName>
                         <Bundle-Name>Assessment Core</Bundle-Name>
                         <Sling-Model-Packages>com.assessment.core.models</Sling-Model-Packages>
-                        <Export-Package>com.assessment.core.services,com.assessment.core.models</Export-Package>
+                        <Export-Package>com.assessment.core.services,com.assessment.core.models,com.assessment.core.config</Export-Package>
                         <Private-Package>com.assessment.core.services.impl</Private-Package>
                     </instructions>
                 </configuration>

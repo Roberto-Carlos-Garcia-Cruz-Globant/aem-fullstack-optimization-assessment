@@ -1,57 +1,49 @@
 package com.assessment.core.models;
 
 import com.assessment.core.services.WeatherService;
-import com.day.cq.wcm.api.Page;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+
+import com.day.cq.wcm.api.Page;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 
-@Model(
-        adaptables = SlingHttpServletRequest.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = SlingHttpServletRequest.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class WeatherModel {
 
+    private final String DEFAULT_CITY = "Bogota";
+
     @Inject
-    private String city;
+    private SlingHttpServletRequest request;
+
+    @Inject
+    private WeatherService weatherService;
 
     @Inject
     private Page currentPage;
 
     @Inject
-    private WeatherService weatherService;
+    private String city;
 
     private String weatherJson;
 
     @PostConstruct
-    protected void init() throws Exception {
-        String requestedCity = city != null ? city : "Bogota";
-        URL url = new URL(
-                "https://goweather.xyz/weather/"
-                        + URLEncoder.encode(requestedCity, StandardCharsets.UTF_8)
-                        + "?apikey=model-level-hardcoded-key");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        weatherJson = new String(connection.getInputStream().readAllBytes(), StandardCharsets.UTF_8);
+    protected void init() {
+
+        String requestedCity = city != null ? city : DEFAULT_CITY;
+
+        weatherJson = weatherService.getForecast(currentPage,
+                requestedCity);
     }
 
     public String getCity() {
-        return city != null ? city : "Bogota";
+        return city != null ? city : DEFAULT_CITY;
     }
 
     public String getWeatherJson() {
         return weatherJson;
-    }
-
-    public String getPageTitle() {
-        return currentPage != null ? currentPage.getTitle() : "Weather Page";
-    }
-
-    public WeatherService getWeatherService() {
-        return weatherService;
     }
 }
